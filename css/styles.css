@@ -1,0 +1,9 @@
+h1,h2{
+  text-transform: capitalize;
+}
+hr{
+  margin-bottom: 5%;
+}
+.ImgLarge{
+  width: 130%;
+}

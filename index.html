@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>PokeStat</title>
+    <script src="index.js" charset="utf-8"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="index.JSON"></script>
+    <link rel="stylesheet" href="css/styles.css">
+
+    </script>
+
+  </head>
+  <body>
+    <div style="text-align:center">
+      <button onclick="answerHider()">RINT</button>
+
+      <button id="start-btn" onclick="startGame()">Start Game</button>
+      <div id="pic-div" style= "height:20%; display: inline-block">
+
+        <h1 id="results"></h1>
+        <img id="poke-ball" src="pokeimages/pokeball.png" alt="pokeImg" width="60%" >
+        <h2 id="type1"></h2>
+        <h2 id="type2"></h2>
+        <input id="pokeID" placeholder="Search by PokeDex #" value="">
+        <button id="poke-search" onclick="pokeSubmit()">Search</button>
+
+      </div>
+    </div>
+
+    <div id="lucky-div" style="background-color:green; text-align:center">
+
+      <h1 id="feeling-lucky">Im Feeling Lucky</h1>
+          <hr>
+      <button onclick="getRandomInt(1,151)">GEN 1</button> <button onclick="getRandomInt(152,251)"> GEN 2</button>
+      <br>
+      <br>
+      <button onclick="getRandomInt(252,386)">GEN 3</button><button onclick="getRandomInt(387,493)">GEN 4</button>
+
+    </div>
+
+    <div id="game-div" style="background-color:red; text-align:center" hidden>
+      <h1>Hidden H1</h1>
+      <button id="game-choice1"></button>
+      <button id="game-choice2"></button>
+      <button id="game-choice3"></button>
+      <br>
+      <button id="game-choice4"></button>
+      <button id="game-choice5"></button>
+      <button id="game-choice6"></button>
+
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </body>
+</html>
