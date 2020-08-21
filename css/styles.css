@@ -4,6 +4,21 @@ h1,h2{
 hr{
   margin-bottom: 5%;
 }
+button{
+  width:30%;
+  margin-bottom:0.5rem;
+}
+#poke-ball{
+  margin: 0 auto;
+}
+
 .ImgLarge{
-  width: 130%;
+  width: 200%;
+}
+
+.pic-div{
+  padding: 0 auto;
+}
+p{
+  font-size: 40%;
 }

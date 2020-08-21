@@ -1,7 +1,7 @@
 //INITALIZING COMMON VARIABLES
 var pokeURL = "http://pokeapi.co/api/v2/pokemon/"
 
-// START GAME FUNCTION
+// START GAME FUNCTION GETTING GENERATION CHOICE FROM USER
 function startGame(){
   var genPicker = prompt("Choose Generation Number 1-4");
     //page restructuring
@@ -14,33 +14,55 @@ function startGame(){
   // restrcture end
 
   if (genPicker == "1"){
-    getRandomInt(1,151);
+    //getRandomInt(1,151);
+    typeGame(1,151);
     }
     else if(genPicker == "2"){
-      getRandomInt(152,251);
+      //getRandomInt(152,251);
+      typeGame(152,251);
     }
     else if(genPicker == "3"){
-      getRandomInt(252,386);
+      //getRandomInt(252,386);
+      typeGame(252,386);
+
     }
     else if(genPicker == "4"){
-      getRandomInt(387,493);
+      //getRandomInt(387,493);
+      typeGame(387,493);
     }
     else if(genPicker>=5 || genPicker<=1){
       alert("Choose Between Generations 1, 2, 3 or 4");
       startGame();
     }
-}
-// END GAME FUNCTION
-
-
-//answer hider function
-function answerHider(){
-  var rINT = Math.floor(Math.random()*6 +1);
-  console.log(rINT);
-
 
 }
+// END OF STARTGAME FUNCTION
 
+//TYPE GAME START
+function typeGame(a,b){
+  getRandomInt(a,b);
+  var type1 = $("#type1").html();
+  var type2 = $("#type1").html();
+
+  result type1
+
+
+  });
+
+
+  console.log(type1);
+  console.log(type2);
+
+}
+//TYPE GAME END
+
+// //answer hider function feature........
+// function answerHider(){
+//   var rINT = Math.floor(Math.random()*6 +1);
+//   console.log(rINT);
+// }
+//random INT FUNCT V2
+// end
 // random int function
 function getRandomInt(min, max) {
   var rINT = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -61,7 +83,7 @@ function getRandomInt(min, max) {
     var pokeName = data.name;
     var pokeID = data.id;
     var pokeName = data.name;
-    var pokeType1 = data.types[0].type.name;
+    const pokeType1 = data.types[0].type.name;
 
 
     if (data.types.length == 1) {
@@ -73,10 +95,16 @@ function getRandomInt(min, max) {
     }
 
 
-    $("#results").html(pokeName);
+    $("#results").html(pokeName + "<p>National_ID:  " + pokeID +"</p>");
     $("#poke-ball").attr("src", pokeURLImg)
+    $('#poke-ball').addClass("ImgLarge")
     $("#type1").html(pokeType1);
     $("#type2").html(pokeType2);
+
+
+
+
+
   })
 
 }
@@ -88,6 +116,7 @@ function getRandomInt(min, max) {
 function pokeSubmit() {
   var param = document.getElementById("pokeID").value;
   var pokeURLCom = pokeURL + param
+  $("#poke-ball").attr('hidden',true)
 
 
   $.getJSON(pokeURLCom, function(data) {
@@ -96,6 +125,9 @@ function pokeSubmit() {
     var pokeName = data.name;
     var pokeType1 = data.types[0].type.name;
     var pokeURLImg = data.sprites.front_default;
+
+    //aiming for faster img load w/ positioning
+
 
     $("#poke-ball").attr("src", pokeURLImg);
 
@@ -119,6 +151,13 @@ function pokeSubmit() {
     $("#results").html(pokeName);
     $("#type1").html(pokeType1);
     $("#type2").html(pokeType2);
+
+    $("#poke-ball").attr('hidden',true);
+    $('#poke-ball').addClass("ImgLarge");
+
+    return pokeName
+
+
 
   });
 

@@ -5,27 +5,37 @@
     <title>PokeStat</title>
     <script src="index.js" charset="utf-8"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="index.JSON"></script>
     <link rel="stylesheet" href="css/styles.css">
 
     </script>
 
   </head>
+  <!-- temp back button -->
+  <button onclick="location.href='file:///C:/Users/bigjr/OneDrive/Documents/github/Poke-Site/index.html'">back</button>
+  <!--  -->
+
   <body>
-    <div style="text-align:center">
-      <button onclick="answerHider()">RINT</button>
+    <!-- //heading -->
+    <button onclick="answerHider()">RINT</button>
+    <button id="start-btn" onclick="startGame()">Start Game</button>
+    <input id="pokeID" placeholder="Name or #ID" value="">
+    <button id="poke-search" onclick="pokeSubmit()">Search</button>
+    <button id="guessing" onclick="typeGame()">Guess test</button>
+    <!-- heading -->
 
-      <button id="start-btn" onclick="startGame()">Start Game</button>
-      <div id="pic-div" style= "height:20%; display: inline-block">
 
-        <h1 id="results"></h1>
+    <div style="padding: 0 auto; text-align:center">
+      <h1 style="font-size:2.5rem" id="results"></h1>
+
+
+      <div id="pic-div" style= "height:20%; display: inline-block; padding:0 auto">
+
+
         <img id="poke-ball" src="pokeimages/pokeball.png" alt="pokeImg" width="60%" >
-        <h2 id="type1"></h2>
-        <h2 id="type2"></h2>
-        <input id="pokeID" placeholder="Search by PokeDex #" value="">
-        <button id="poke-search" onclick="pokeSubmit()">Search</button>
-
       </div>
+      <h2 id="type1"></h2>
+      <h2 id="type2"></h2>
+
     </div>
 
     <div id="lucky-div" style="background-color:green; text-align:center">
@@ -41,13 +51,29 @@
 
     <div id="game-div" style="background-color:red; text-align:center" hidden>
       <h1>Hidden H1</h1>
-      <button id="game-choice1"></button>
-      <button id="game-choice2"></button>
-      <button id="game-choice3"></button>
+      <button id="game-choice1">Normal</button>
+      <button id="game-choice2">Fight</button>
+      <button id="game-choice3">Flying</button>
       <br>
-      <button id="game-choice4"></button>
-      <button id="game-choice5"></button>
-      <button id="game-choice6"></button>
+      <button id="game-choice4">Poison</button>
+      <button id="game-choice5">Ground</button>
+      <button id="game-choice6">Rock</button>
+      <br>
+      <button id="game-choice1">Bug</button>
+      <button id="game-choice2">Ghost</button>
+      <button id="game-choice3">Steel</button>
+      <br>
+      <button id="game-choice4">Fire</button>
+      <button id="game-choice5">Water</button>
+      <button id="game-choice6">Grass</button>
+      <br>
+      <button id="game-choice1">Electric</button>
+      <button id="game-choice2">Psychic</button>
+      <button id="game-choice3">Ice</button>
+      <br>
+      <button id="game-choice4">Dragon</button>
+      <button id="game-choice5">Dark</button>
+      <button id="game-choice6">Fairy</button>
 
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
