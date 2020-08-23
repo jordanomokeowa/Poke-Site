@@ -4,8 +4,6 @@ var pokeURL = "http://pokeapi.co/api/v2/pokemon/";
 
 //--------------------------------------------------------------------
 
-
-
 //INIT FUNCTIONS---------------------------------------------------------------------------
 
 function choiceButton(){
@@ -16,11 +14,11 @@ function choiceButton(){
 function pageChange(){
 
   $('#feeling-lucky').toggle();
-  // $("#pokeID").toggle();
-  // $("#poke-search").attr('hidden',true);
-  $("#start-btn").attr('hidden',true);
   $('#game-div').attr('hidden',false);
-  $("#lucky-div").attr('hidden',true)
+  $("#lucky-div").attr('hidden',true);
+  $("#poke-ball").remove();
+  $("#poke-sprite").remove();
+
 }
 //
 
@@ -85,45 +83,71 @@ function startGame() {
   }
   //end..............
 
-  pokeURLCom2 = pokeURL + pokeID
+  pokeURLCom = pokeURL + pokeID
 
-  $.getJSON(pokeURLCom2, function(data) {
+  $.getJSON(pokeURLCom, function(data) {
 
 
     var pokeImg = data.sprites.front_default;
-    $("#poke-ball").attr("src", pokeImg);
-    $("#poke-ball").addClass("ImgLarge")
+    $("#pic-div").prepend($('<img>',{id:'poke-sprite',src:pokeImg}));
+
 
     var pokeName = data.name;
     var pokeID = data.id;
-    var pokeName = data.name;
     var pokeType1 = data.types[0].type.name;
     var typeNumber = data.types.length;
-    $("#type1").html(pokeType1);
+
+    $("#feeling-lucky").text("Type In " + typeNumber + "Types");
+
+
 
     console.log(pokeType1);
 
+    $('#poke-sprite').bind("load",function(){
+      function typeNumCheck(){
+        if (typeNumber == 1) {
 
+          pokeType2 = "";
+          var userGuess = prompt("Guess the Pokemons Type").toLowerCase();
 
-    function typeNumCheck(){
-      if (typeNumber == 1) {
-        pokeType2 = "";
-        var userGuess = prompt("pokemon type guess").toLowerCase();
-        if (userGuess === pokeType1){
-          console.log("Well Done");
+          if (userGuess == pokeType1){
+            alert("Well Done");
+          }
+          else{
+            alert("incorrect")
+          }
+          }
+
+        else {
+
+          var pokeType2 = data.types[1].type.name;
+          console.log(pokeType2);
+          var userGuess1 = prompt("The Pokemon has TWO Types... Enter Type 1 Guess: ").toLowerCase();
+
+          if (userGuess1 == pokeType1){
+            alert("well done one down")
+          }
+          else{
+            alert("inccorect")
+          }
+
+          var userGuess2 = prompt("Type 2 Guess").toLowerCase();
+          if (userGuess2 == pokeType2){
+            alert("well done type 2 is correct")
+          }
+          else{
+            alert("inccorect")
+          }
         }
-        else{
-          alert("incorrect")
-        }
-        }
-      else {
-        var pokeType2 = data.types[1].type.name;
-        console.log(pokeType2);
-        $("#type2").html(pokeType2);
+
       }
+      typeNumCheck();
+    })
 
-    }
-    $("#poke-ball").ready(typeNumCheck)
+
+
+
+
 
 
 
@@ -133,185 +157,9 @@ function startGame() {
 
 }
 // END OF STARTGAME FUNCTION
-// //ANSWER SUBMIT FUNCTION
-// function answerSubmit(num){
-//   if (num == 1 ){
-//     x = "normal";
-//     if (x == pokeType1){
-//       prompt("Congrats");
-//     }
-//     else {
-//       return
-//     }
-//   }
-//   if (num == 2 ){
-//     x = "fighting";
-//     if (x == pokeType1){
-//       prompt("Congrats");
-//     }
-//     else {
-//       return
-//     }
-//   }
-//   if (num == 3 ){
-//     x = "fighting";
-//     if (x == pokeType1){
-//       prompt("Congrats");
-//     }
-//     else {
-//       return
-//     }
-//   }
-//   if (num == 4 ){
-//     x = "fighting";
-//     if (x == pokeType1){
-//       prompt("Congrats");
-//     }
-//     else {
-//       return
-//     }
-//   }
-//   if (num == 5 ){
-//     x = "fighting";
-//     if (x == pokeType1){
-//       prompt("Congrats");
-//     }
-//     else {
-//       return
-//     }
-//   }
-//   if (num == 6 ){
-//     x = "fighting";
-//     if (x == pokeType1){
-//       prompt("Congrats");
-//     }
-//     else {
-//       return
-//     }
-//   }
-//   if (num == 7 ){
-//     x = "fighting";
-//     if (x == pokeType1){
-//       prompt("Congrats");
-//     }
-//     else {
-//       return
-//     }
-//
-//   }
-//   if (num == 8 ){
-//     x = "fighting";
-//     if (x == pokeType1){
-//       prompt("Congrats");
-//     }
-//     else {
-//       return
-//     }
-//   }
-//   if (num == 9 ){
-//     x = "fighting";
-//     if (x == pokeType1){
-//       prompt("Congrats");
-//     }
-//     else {
-//       return
-//     }
-//   }
-//   if (num == 10 ){
-//     x = "fighting";
-//     if (x == pokeType1){
-//       prompt("Congrats");
-//     }
-//     else {
-//       return
-//     }
-//   }
-//   if (num == 11 ){
-//     x = "fighting";
-//     if (x == pokeType1){
-//       prompt("Congrats");
-//     }
-//     else {
-//       return
-//     }
-//   }
-//   if (num == 12 ){
-//     x = "fighting";
-//     if (x == pokeType1){
-//       prompt("Congrats");
-//     }
-//     else {
-//       return
-//     }
-//   }
-//   if (num == 13 ){
-//     x = "fighting";
-//     if (x == pokeType1){
-//       prompt("Congrats");
-//     }
-//     else {
-//       return
-//     }
-//   }
-//   if (num == 14 ){
-//     x = "fighting";
-//     if (x == pokeType1){
-//       prompt("Congrats");
-//     }
-//     else {
-//       return
-//     }
-//   }
-//   if (num == 15 ){
-//     x = "fighting";
-//     if (x == pokeType1){
-//       prompt("Congrats");
-//     }
-//     else {
-//       return
-//     }
-//   }
-//   if (num == 16 ){
-//     x = "fighting";
-//     if (x == pokeType1){
-//       prompt("Congrats");
-//     }
-//     else {
-//       return
-//     }
-//   }
-//   if (num == 17 ){
-//     x = "fighting";
-//     if (x == pokeType1){
-//       prompt("Congrats");
-//     }
-//     else {
-//       return
-//     }
-//   }
-//   if (num == 18 ){
-//     x = "fighting";
-//     if (x == pokeType1){
-//       prompt("Congrats");
-//     }
-//     else {
-//       return
-//     }
-//   }
-//
-// }
-// //END
 
 
-
-// //answer hider function feature........
-// function answerHider(){
-//   var rINT = Math.floor(Math.random()*6 +1);
-//   console.log(rINT);
-// }
-//random INT FUNCT V2
-// end
-// random int function
+// random GEN PICKER FROM LUCKY
 function genPicker(num) {
   if (num == 1) {
     return getRandomInt(1, 151);
