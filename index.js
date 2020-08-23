@@ -89,7 +89,7 @@ function startGame() {
 
 
     var pokeImg = data.sprites.front_default;
-    $("#pic-div").prepend($('<img>',{id:'poke-sprite',src:pokeImg}));
+    $("#pic-div").prepend($('<img>',{id:'poke-sprite',src:pokeImg, style:'width:15rem'}));
 
 
     var pokeName = data.name;
@@ -114,7 +114,7 @@ function startGame() {
             alert("Well Done");
           }
           else{
-            alert("incorrect")
+            alert("Incorrect... Type 1 is: " + pokeType1)
           }
           }
 
@@ -128,7 +128,8 @@ function startGame() {
             alert("well done one down")
           }
           else{
-            alert("inccorect")
+            alert("Incorrect... Type 1 is: " + pokeType1)
+
           }
 
           var userGuess2 = prompt("Type 2 Guess").toLowerCase();
@@ -136,7 +137,8 @@ function startGame() {
             alert("well done type 2 is correct")
           }
           else{
-            alert("inccorect")
+            alert("Incorrect... Type 2 is: " + pokeType2)
+
           }
         }
 
