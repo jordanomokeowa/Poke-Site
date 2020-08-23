@@ -8,6 +8,10 @@ button{
   width:30%;
   margin-bottom:0.5rem;
 }
+p{
+  font-size: 40%;
+}
+
 #poke-ball{
   margin: 0 auto;
 }
@@ -19,6 +23,10 @@ button{
 .pic-div{
   padding: 0 auto;
 }
-p{
-  font-size: 40%;
+.pokeDexStyle{
+  border: 2rem solid red;
+  background-color: skyblue;
+  text-align: center;
+  margin: 0% 7%;
+
 }

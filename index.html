@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <title>PokeStat</title>
-    <script src="index.js" charset="utf-8"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="index.js" charset="utf-8"></script>
     <link rel="stylesheet" href="css/styles.css">
 
     </script>
@@ -16,64 +16,70 @@
 
   <body>
     <!-- //heading -->
-    <button onclick="answerHider()">RINT</button>
+    <button onclick="getRandomInt(1,151)">RINT</button>
     <button id="start-btn" onclick="startGame()">Start Game</button>
-    <input id="pokeID" placeholder="Name or #ID" value="">
+    <input id="pokeID" placeholder="National ID or Name" value="">
     <button id="poke-search" onclick="pokeSubmit()">Search</button>
     <button id="guessing" onclick="typeGame()">Guess test</button>
     <!-- heading -->
+    <div class="pokeDexStyle">
+      <div style="padding: 0 auto; text-align:center">
+        <h1 style="font-size:2.5rem" id="results"></h1>
 
 
-    <div style="padding: 0 auto; text-align:center">
-      <h1 style="font-size:2.5rem" id="results"></h1>
+        <div id="pic-div" style= "height:20%; display: inline-block; padding:0 auto">
 
 
-      <div id="pic-div" style= "height:20%; display: inline-block; padding:0 auto">
+          <img id="poke-ball" src="pokeimages/pokeball.png" alt="pokeImg" width="60%" >
+        </div>
+        <h2 id="type1"></h2>
+        <h2 id="type2"></h2>
 
-
-        <img id="poke-ball" src="pokeimages/pokeball.png" alt="pokeImg" width="60%" >
       </div>
-      <h2 id="type1"></h2>
-      <h2 id="type2"></h2>
+
+
 
     </div>
 
-    <div id="lucky-div" style="background-color:green; text-align:center">
+    <div id="lucky-div" class="pokeDexStyle">
 
       <h1 id="feeling-lucky">Im Feeling Lucky</h1>
           <hr>
-      <button onclick="getRandomInt(1,151)">GEN 1</button> <button onclick="getRandomInt(152,251)"> GEN 2</button>
+      <button onclick="feelingLucky(1)">GEN 1</button> <button onclick="feelingLucky(2)"> GEN 2</button>
       <br>
       <br>
-      <button onclick="getRandomInt(252,386)">GEN 3</button><button onclick="getRandomInt(387,493)">GEN 4</button>
+      <button onclick="feelingLucky(3)">GEN 3</button><button onclick="feelingLucky(4)">GEN 4</button>
 
     </div>
 
+
+
+
     <div id="game-div" style="background-color:red; text-align:center" hidden>
       <h1>Hidden H1</h1>
-      <button id="game-choice1">Normal</button>
-      <button id="game-choice2">Fight</button>
-      <button id="game-choice3">Flying</button>
+      <button onclick="answerSubmit(1)" >normal</button>
+      <button onclick="answerSubmit(2)" >fightingt</button>
+      <button onclick="answerSubmit(3)" >flying</button>
       <br>
-      <button id="game-choice4">Poison</button>
-      <button id="game-choice5">Ground</button>
-      <button id="game-choice6">Rock</button>
+      <button onclick="answerSubmit(4)">poison</button>
+      <button onclick="answerSubmit(5)">ground</button>
+      <button onclick="answerSubmit(6)">rock</button>
       <br>
-      <button id="game-choice1">Bug</button>
-      <button id="game-choice2">Ghost</button>
-      <button id="game-choice3">Steel</button>
+      <button onclick="answerSubmit(7)">bug</button>
+      <button onclick="answerSubmit(8)">ghost</button>
+      <button onclick="answerSubmit(9)">steel</button>
       <br>
-      <button id="game-choice4">Fire</button>
-      <button id="game-choice5">Water</button>
-      <button id="game-choice6">Grass</button>
+      <button onclick="answerSubmit(10)">fire</button>
+      <button onclick="answerSubmit(11)">water</button>
+      <button onclick="answerSubmit(12)">grass</button>
       <br>
-      <button id="game-choice1">Electric</button>
-      <button id="game-choice2">Psychic</button>
-      <button id="game-choice3">Ice</button>
-      <br>
-      <button id="game-choice4">Dragon</button>
-      <button id="game-choice5">Dark</button>
-      <button id="game-choice6">Fairy</button>
+      <button onclick="answerSubmit(13)">electric</button>
+      <button onclick="answerSubmit(14)">psychic</button>
+      <button onclick="answerSubmit(15)">ice</button>
+      <br
+      <button onclick="answerSubmit(16)">dragon</button>
+      <button onclick="answerSubmit(17)">dark</button>
+      <button onclick="answerSubmit(18)">fairy</button>
 
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
