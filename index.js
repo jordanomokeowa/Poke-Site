@@ -1,6 +1,8 @@
 
 //INITALIally ASSIGNING VARIABLES--------------------------------------
 var pokeURL = "http://pokeapi.co/api/v2/pokemon/";
+var pokeURL2 = "https://cdn.traction.one/pokedex/pokemon/"
+
 
 //--------------------------------------------------------------------
 
@@ -87,23 +89,17 @@ function startGame() {
 
   $.getJSON(pokeURLCom, function(data) {
 
-
-    var pokeImg = data.sprites.front_default;
-    $("#pic-div").prepend($('<img>',{id:'poke-sprite',src:pokeImg, style:'width:15rem'}));
-
-
     var pokeName = data.name;
     var pokeID = data.id;
     var pokeType1 = data.types[0].type.name;
     var typeNumber = data.types.length;
 
-    $("#feeling-lucky").text("Type In " + typeNumber + "Types");
-
-
 
     console.log(pokeType1);
+    $("#poke-ball").attr("src", pokeURL2 + pokeID + ".png");
 
-    $('#poke-sprite').bind("load",function(){
+
+    $('#poke-ball').bind("load",function(){
       function typeNumCheck(){
         if (typeNumber == 1) {
 
@@ -187,9 +183,8 @@ function feelingLucky(i){
     var pokeID = data.id;
     var pokeName = data.name;
     var pokeType1 = data.types[0].type.name;
-    var pokeImg = data.sprites.front_default;
 
-    $("#poke-ball").attr("src", pokeImg);
+    $("#poke-ball").attr("src", pokeURL2 + pokeID + ".png");
 
     var typeNum = data.types.length;
 
@@ -229,7 +224,7 @@ function pokeSubmit() {
     var pokeType1 = data.types[0].type.name;
     var pokeImg = data.sprites.front_default;
 
-    $("#poke-ball").attr("src", pokeImg);
+    $("#poke-ball").attr("src", pokeURL2 + pokeID + ".png");
 
     var typeNum = data.types.length;
 
