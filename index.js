@@ -1,25 +1,24 @@
 
 //INITALIally ASSIGNING VARIABLES--------------------------------------
+//source for json
 var pokeURL = "http://pokeapi.co/api/v2/pokemon/";
+//
+//high res img source
 var pokeURL2 = "https://cdn.traction.one/pokedex/pokemon/"
-
+//
 
 //--------------------------------------------------------------------
 
 //INIT FUNCTIONS---------------------------------------------------------------------------
 
-function choiceButton(){
-  return document.getElementById("game-choice");
-}
-
 //page restructuring
-function pageChange(){
+function pageGame(){
 
   $('#feeling-lucky').toggle();
-  $('#game-div').attr('hidden',false);
-  $("#lucky-div").attr('hidden',true);
-  $("#poke-ball").remove();
-  $("#poke-sprite").remove();
+  $('#game-div').toggle();
+  $("#lucky-div").attr("hidden",true);
+  $("#type1").attr("hidden",true);
+  $("#type2").attr("hidden",true);
 
 }
 //
@@ -57,16 +56,28 @@ else if (num >= 5 || num <= 1) {
 
 }
 //
+
+// button comparison to type
+function answerSubmit(num){
+  var answer = document.getElementById("t"+num).value;
+  console.log(answer);
+  var type = document.getElementById("type1").innerText.toLowerCase();
+  console.log("inner text" + type)
+  if (answer == type){
+    alert("EZZZZ");
+  }
+  else {
+    alert("WRONG")
+  }
+}
 //
 // INIT END ------------------------------------------------------------------------
 
 
-
 // START GAME FUNCTION GETTING GENERATION CHOICE FROM USER
 function startGame() {
-
   //rearrange page
-  pageChange();
+  pageGame();
   //rearrange page end
 
  //match gen choice with random ID
@@ -85,7 +96,7 @@ function startGame() {
   }
   //end..............
 
-  pokeURLCom = pokeURL + pokeID
+  pokeURLCom = pokeURL + pokeID;
 
   $.getJSON(pokeURLCom, function(data) {
 
@@ -96,63 +107,55 @@ function startGame() {
 
 
     console.log(pokeType1);
-    $("#poke-ball").attr("src", pokeURL2 + pokeID + ".png");
+    function typeNumCheck(){
+      if (typeNumber == 1) {
 
+        pokeType2 = "";
+        var userGuess = prompt("Guess the Pokemons Type").toLowerCase();
 
-    $('#poke-ball').bind("load",function(){
-      function typeNumCheck(){
-        if (typeNumber == 1) {
-
-          pokeType2 = "";
-          var userGuess = prompt("Guess the Pokemons Type").toLowerCase();
-
-          if (userGuess == pokeType1){
-            alert("Well Done");
-          }
-          else{
-            alert("Incorrect... Type 1 is: " + pokeType1)
-          }
-          }
-
-        else {
-
-          var pokeType2 = data.types[1].type.name;
-          console.log(pokeType2);
-          var userGuess1 = prompt("The Pokemon has TWO Types... Enter Type 1 Guess: ").toLowerCase();
-
-          if (userGuess1 == pokeType1){
-            alert("well done one down")
-          }
-          else{
-            alert("Incorrect... Type 1 is: " + pokeType1)
-
-          }
-
-          var userGuess2 = prompt("Type 2 Guess").toLowerCase();
-          if (userGuess2 == pokeType2){
-            alert("well done type 2 is correct")
-          }
-          else{
-            alert("Incorrect... Type 2 is: " + pokeType2)
-
-          }
+        if (userGuess == pokeType1){
+          alert("Well Done");
+        }
+        else{
+          alert("Incorrect... Type 1 is: " + pokeType1)
+        }
         }
 
+      else {
+        $("#type2").html(pokeType2);
+
+        var pokeType2 = data.types[1].type.name;
+        console.log(pokeType2);
+        var userGuess1 = prompt("The Pokemon has TWO Types... Enter Type 1 Guess: ").toLowerCase();
+
+        if (userGuess1 == pokeType1){
+          alert("well done one down")
+        }
+        else{
+          alert("Incorrect... Type 1 is: " + pokeType1)
+
+        }
+
+        var userGuess2 = prompt("Type 2 Guess").toLowerCase();
+        if (userGuess2 == pokeType2){
+          alert("well done type 2 is correct")
+        }
+        else{
+          alert("Incorrect... Type 2 is: " + pokeType2)
+
+        }
       }
-      typeNumCheck();
-    })
 
 
 
 
 
-
-
-
-
+    }
     $("#results").html(pokeName + "<p>National_ID:  " + pokeID + "</p>");
-  })
+    $("#poke-ball").attr("src", pokeURL2 + pokeID + ".png");
+    $("#type1").html(pokeType1);
 
+  })
 }
 // END OF STARTGAME FUNCTION
 
@@ -216,7 +219,7 @@ function pokeSubmit() {
   var pokeURLCom = pokeURL + param
   console.log(pokeURLCom)
 
-  $("#poke-ball").attr('hidden', true)
+  // $("#poke-ball").attr('hidden', true)
   $.getJSON(pokeURLCom, function(data) {
 
     var pokeID = data.id;
@@ -237,12 +240,22 @@ function pokeSubmit() {
     }
 
     $("#results").html(pokeName);
+    $("#results").html(pokeName + "<p>National_ID:  " + pokeID + "</p>");
     $("#type1").html(pokeType1);
     $("#type2").html(pokeType2);
-    $("#poke-ball").attr('hidden', false);
-    $('#poke-ball').addClass("ImgLarge");
-    return pokeName
+
   });
 
 };
 // END
+//TESTING
+var correctAnswers = [];
+var incorrectAnswers = [];
+
+// Gives correct value for what types returned from each button
+
+
+
+
+// known bugs
+// pokemon 487, 492 has no image

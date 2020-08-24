@@ -14,10 +14,16 @@ p{
 
 #poke-ball{
   margin: 0 auto;
-  width: 35%;
+  width: 13rem;
 }
 
-
+.hinge{
+  width: 50%;
+  background-color: red;
+  border-radius: 10%;
+  border: 0.5rem solid black;
+  margin-left: 1.5rem;
+}
 .ImgLarge{
   width: 200%;
 }
@@ -29,7 +35,13 @@ p{
   border: 2rem solid red;
   background-color: skyblue;
   text-align: center;
-  margin: 5% 7%;
-  width: 60%
+  height: 30%;
 
+  width: 50%;
+
+}
+.container{
+  margin: 0 auto;
+  text-align: center;
+  background-color: grey;
 }
