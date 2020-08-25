@@ -18,12 +18,18 @@
 <body>
   <!-- //heading -->
   <button id="start-btn" onclick="startGame()">Guess The Type Game</button>
-  <input id="pokeID" placeholder="National ID or Name" value="">
+  <input id="pokeID" placeholder="Name / National ID" value="">
   <button id="poke-search" onclick="pokeSubmit()">Search</button>
   <hr>
 
   <!-- heading -->
   <div class="container">
+    <div class="guessDiv">
+      <p id="guesses"></p>
+
+
+
+    </div>
 
 
     <div class="pokeDexStyle">
@@ -72,7 +78,7 @@
 
 
     <div id="game-div" class="pokeDexStyle" hidden>
-      <h1>Pokemon Types</h1>
+      <h1>Select The Correct Type</h1>
       <button id="t1" value="normal"onclick="answerSubmit(1)">Normal</button>
       <button id="t2"value="fighting"onclick="answerSubmit(2)">Fighting</button>
       <button id="t3"value="flying"onclick="answerSubmit(3)">Flying</button>

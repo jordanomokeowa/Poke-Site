@@ -6,16 +6,24 @@ var pokeURL = "http://pokeapi.co/api/v2/pokemon/";
 //high res img source
 var pokeURL2 = "https://cdn.traction.one/pokedex/pokemon/"
 //
+//guessing counter
+var correctAnswers = [];
+var incorrectAnswers = [];
+
 
 //--------------------------------------------------------------------
-
 //INIT FUNCTIONS---------------------------------------------------------------------------
+// GO HOME FUNCTION=============
+function goHome(){
+  window.location.href="index.html"
+}
+//
 
 //page restructuring
 function pageGame(){
 
-  $('#feeling-lucky').toggle();
-  $('#game-div').toggle();
+  $('#feeling-lucky').attr("hidden",true);
+  $('#game-div').attr("hidden",false);
   $("#lucky-div").attr("hidden",true);
   $("#type1").attr("hidden",true);
   $("#type2").attr("hidden",true);
@@ -62,13 +70,34 @@ function answerSubmit(num){
   var answer = document.getElementById("t"+num).value;
   console.log(answer);
   var type = document.getElementById("type1").innerText.toLowerCase();
-  console.log("inner text" + type)
-  if (answer == type){
-    alert("EZZZZ");
+  console.log("inner text : " + type);
+
+  if (incorrectAnswers.length <=2){
+    if (answer == type){
+      alert("EZZZZ");
+      correctAnswers.push("tick");
+      console.log(correctAnswers);
+    }
+    else {
+      alert("WRONG");
+      incorrectAnswers.push("X");
+      console.log(incorrectAnswers);
+      $("#guesses").html("You have "+ (3-incorrectAnswers.length) + "  guesses remaining");
+      if (incorrectAnswers.length == 3){
+        alert("youve ran out of guesses");
+        goHome();
+      }
+      else{
+        return
+      }
+    }
   }
-  else {
-    alert("WRONG")
+  else{
+    alert("youve ran out of guesses!!");
+    goHome();
+
   }
+
 }
 //
 // INIT END ------------------------------------------------------------------------
@@ -78,6 +107,8 @@ function answerSubmit(num){
 function startGame() {
   //rearrange page
   pageGame();
+  $("#guesses").html("You have "+ (3-incorrectAnswers.length) + "  guesses remaining");
+
   //rearrange page end
 
  //match gen choice with random ID
@@ -211,6 +242,15 @@ function feelingLucky(i){
 
 }
 //
+///==================================================
+function Pokemon (id,name,img,type1,type2){
+  this.id = id;
+  this.name = name;
+  this.img = img;
+  this.type1 = type1;
+  this.type2 = type2;
+}
+// ====================================================
 
 
 // Recall data from user input pokeID num value. START//
@@ -219,7 +259,14 @@ function pokeSubmit() {
   var pokeURLCom = pokeURL + param
   console.log(pokeURLCom)
 
-  // $("#poke-ball").attr('hidden', true)
+  $("#guesses").attr('hidden', true);
+  $("#type1").attr('hidden',false);
+  $("#type2").attr('hidden',false);
+  $("#lucky-div").attr('hidden',false)
+  $('#game-div').attr('hidden',true)
+  
+
+
   $.getJSON(pokeURLCom, function(data) {
 
     var pokeID = data.id;
@@ -227,7 +274,7 @@ function pokeSubmit() {
     var pokeType1 = data.types[0].type.name;
     var pokeImg = data.sprites.front_default;
 
-    $("#poke-ball").attr("src", pokeURL2 + pokeID + ".png");
+    $("#poke-ball").attr("src",pokeURL2 + pokeID + ".png");
 
     var typeNum = data.types.length;
 
@@ -242,17 +289,16 @@ function pokeSubmit() {
     $("#results").html(pokeName);
     $("#results").html(pokeName + "<p>National_ID:  " + pokeID + "</p>");
     $("#type1").html(pokeType1);
-    $("#type2").html(pokeType2);
+    // $("#type2").html(pokeType2);
 
   });
 
 };
 // END
 //TESTING
-var correctAnswers = [];
-var incorrectAnswers = [];
 
-// Gives correct value for what types returned from each button
+
+
 
 
 
