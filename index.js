@@ -1,4 +1,3 @@
-
 //INITALIally ASSIGNING VARIABLES--------------------------------------
 //source for json
 var pokeURL = "http://pokeapi.co/api/v2/pokemon/";
@@ -14,19 +13,18 @@ var incorrectAnswers = [];
 //--------------------------------------------------------------------
 //INIT FUNCTIONS---------------------------------------------------------------------------
 // GO HOME FUNCTION=============
-function goHome(){
-  window.location.href="index.html"
+function goHome() {
+  window.location.href = "index.html"
 }
 //
 
 //page restructuring
-function pageGame(){
+function pageGame() {
 
-  $('#feeling-lucky').attr("hidden",true);
-  $('#game-div').attr("hidden",false);
-  $("#lucky-div").attr("hidden",true);
-  $("#type1").attr("hidden",true);
-  $("#type2").attr("hidden",true);
+  $('#game-div').attr("hidden", false);
+  $("#lucky-div").attr("hidden", true);
+  $("#type1").attr("hidden", true);
+  $("#type2").attr("hidden", true);
 
 }
 //
@@ -42,22 +40,13 @@ function getRandomInt(min, max) {
 function randIdPicker(num) {
   if (num == "1") {
     return getRandomInt(1, 151);
-  }
-
-  else if (num == "2") {
+  } else if (num == "2") {
     return getRandomInt(152, 251);
-  }
-
-  else if (num == "3") {
+  } else if (num == "3") {
     return getRandomInt(252, 386);
-
-  }
-
-  else if (num == "4") {
+  } else if (num == "4") {
     return getRandomInt(387, 493);
-  }
-
-else if (num >= 5 || num <= 1) {
+  } else if (num >= 5 || num <= 1) {
     alert("Choose Between Generations 1, 2, 3 or 4");
     return
   }
@@ -66,37 +55,68 @@ else if (num >= 5 || num <= 1) {
 //
 
 // button comparison to type
-function answerSubmit(num){
-  var answer = document.getElementById("t"+num).value;
-  console.log(answer);
-  var type = document.getElementById("type1").innerText.toLowerCase();
-  console.log("inner text : " + type);
+function answerSubmit(num) {
+  var answer = document.getElementById("t" + num).value;
+  console.log(answer)
+  var type1 = document.getElementById("type1").innerText.toLowerCase();
+  console.log("inner text : " + type1);
 
-  if (incorrectAnswers.length <=2){
-    if (answer == type){
-      alert("EZZZZ");
-      correctAnswers.push("tick");
-      console.log(correctAnswers);
-    }
-    else {
-      alert("WRONG");
-      incorrectAnswers.push("X");
-      console.log(incorrectAnswers);
-      $("#guesses").html("You have "+ (3-incorrectAnswers.length) + "  guesses remaining");
-      if (incorrectAnswers.length == 3){
-        alert("youve ran out of guesses");
-        goHome();
+  if (correctAnswers.length == 0) {
+    if (incorrectAnswers.length <= 2) {
+      if (answer == type1) {
+        $("#choice-head").html("Well Done!");
+        correctAnswers.push("tick");
+        console.log(correctAnswers);
+      } else {
+        alert("WRONG");
+        incorrectAnswers.push("X");
+        console.log(incorrectAnswers);
+        $("#num-types").html("You have " + (3 - incorrectAnswers.length) + "  guesses remaining");
+        if (incorrectAnswers.length == 3) {
+          alert("youve ran out of guesses");
+          goHome();
+        } else {
+          return
+        }
       }
-      else{
-        return
-      }
+    } else {
+      alert("youve ran out of guesses!!");
+      goHome();
+
     }
-  }
-  else{
-    alert("youve ran out of guesses!!");
-    goHome();
 
   }
+
+  else {
+    var type2 = document.getElementById("type2").innerText.toLowerCase();
+
+    if (incorrectAnswers.length <= 2) {
+      if (answer == type2) {
+        $("#choice-head").html("Well Done!");
+        correctAnswers.push("tick");
+        alert("Well Done You Guessed Both Types");
+      } else {
+        alert("WRONG");
+        incorrectAnswers.push("X");
+        console.log(incorrectAnswers);
+        $("#num-types").html("You have " + (3 - incorrectAnswers.length) + "  guesses remaining");
+        if (incorrectAnswers.length == 3) {
+          alert("youve ran out of guesses");
+          goHome();
+        } else {
+          return
+        }
+      }
+    } else {
+      alert("youve ran out of guesses!!");
+      goHome();
+
+    }
+
+  }
+
+
+
 
 }
 //
@@ -107,11 +127,10 @@ function answerSubmit(num){
 function startGame() {
   //rearrange page
   pageGame();
-  $("#guesses").html("You have "+ (3-incorrectAnswers.length) + "  guesses remaining");
 
   //rearrange page end
 
- //match gen choice with random ID
+  //match gen choice with random ID
   genPicker = prompt("Choose Generation Number 1-4");
   if (genPicker == "1") {
     var pokeID = randIdPicker(1);
@@ -135,56 +154,28 @@ function startGame() {
     var pokeID = data.id;
     var pokeType1 = data.types[0].type.name;
     var typeNumber = data.types.length;
-
+    $("#poke-ball").attr("src", pokeURL2 + pokeID + ".png");
+    $("#num-type").html("Pokemon Type Num: " + typeNumber + ".")
+    $("#guesses").html( "You have " + (3 - incorrectAnswers.length) + "  guesses remaining");
 
     console.log(pokeType1);
-    function typeNumCheck(){
+
+    function typeNumCheck() {
       if (typeNumber == 1) {
-
         pokeType2 = "";
-        var userGuess = prompt("Guess the Pokemons Type").toLowerCase();
-
-        if (userGuess == pokeType1){
-          alert("Well Done");
-        }
-        else{
-          alert("Incorrect... Type 1 is: " + pokeType1)
-        }
-        }
-
-      else {
+        $("#type1").html(pokeType1);
         $("#type2").html(pokeType2);
 
+      } else {
         var pokeType2 = data.types[1].type.name;
-        console.log(pokeType2);
-        var userGuess1 = prompt("The Pokemon has TWO Types... Enter Type 1 Guess: ").toLowerCase();
-
-        if (userGuess1 == pokeType1){
-          alert("well done one down")
-        }
-        else{
-          alert("Incorrect... Type 1 is: " + pokeType1)
-
-        }
-
-        var userGuess2 = prompt("Type 2 Guess").toLowerCase();
-        if (userGuess2 == pokeType2){
-          alert("well done type 2 is correct")
-        }
-        else{
-          alert("Incorrect... Type 2 is: " + pokeType2)
-
-        }
+        $("#type1").html(pokeType1);
+        $("#type2").html(pokeType2);
       }
-
-
-
-
-
     }
+
+    typeNumCheck();
+    console.log(pokeType2)
     $("#results").html(pokeName + "<p>National_ID:  " + pokeID + "</p>");
-    $("#poke-ball").attr("src", pokeURL2 + pokeID + ".png");
-    $("#type1").html(pokeType1);
 
   })
 }
@@ -207,7 +198,7 @@ function genPicker(num) {
 }
 //rand INT FUNCTION end
 // feeling lucky function
-function feelingLucky(i){
+function feelingLucky(i) {
   var param = genPicker(i);
 
   var pokeURLCom = pokeURL + param
@@ -220,6 +211,7 @@ function feelingLucky(i){
 
     $("#poke-ball").attr("src", pokeURL2 + pokeID + ".png");
 
+
     var typeNum = data.types.length;
 
     if (typeNum == 1) {
@@ -230,7 +222,9 @@ function feelingLucky(i){
       var pokeType2 = data.types[1].type.name;
     }
 
-    $("#results").html(pokeName);
+    $("#results").html(pokeName + "<p>National_ID:  " + pokeID + "</p>");
+
+
     $("#type1").html(pokeType1);
     $("#type2").html(pokeType2);
     $("#poke-ball").attr('hidden', false);
@@ -243,7 +237,7 @@ function feelingLucky(i){
 }
 //
 ///==================================================
-function Pokemon (id,name,img,type1,type2){
+function Pokemon(id, name, img, type1, type2) {
   this.id = id;
   this.name = name;
   this.img = img;
@@ -260,11 +254,11 @@ function pokeSubmit() {
   console.log(pokeURLCom)
 
   $("#guesses").attr('hidden', true);
-  $("#type1").attr('hidden',false);
-  $("#type2").attr('hidden',false);
-  $("#lucky-div").attr('hidden',false)
-  $('#game-div').attr('hidden',true)
-  
+  $("#type1").attr('hidden', false);
+  $("#type2").attr('hidden', false);
+  $("#lucky-div").attr('hidden', false)
+  $('#game-div').attr('hidden', true)
+
 
 
   $.getJSON(pokeURLCom, function(data) {
@@ -274,7 +268,7 @@ function pokeSubmit() {
     var pokeType1 = data.types[0].type.name;
     var pokeImg = data.sprites.front_default;
 
-    $("#poke-ball").attr("src",pokeURL2 + pokeID + ".png");
+    $("#poke-ball").attr("src", pokeURL2 + pokeID + ".png");
 
     var typeNum = data.types.length;
 
@@ -284,12 +278,12 @@ function pokeSubmit() {
 
     } else {
       var pokeType2 = data.types[1].type.name;
+      $("#type2").html(pokeType2);
     }
 
     $("#results").html(pokeName);
     $("#results").html(pokeName + "<p>National_ID:  " + pokeID + "</p>");
     $("#type1").html(pokeType1);
-    // $("#type2").html(pokeType2);
 
   });
 
