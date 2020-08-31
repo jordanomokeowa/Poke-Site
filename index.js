@@ -5,9 +5,11 @@ var pokeURL = "http://pokeapi.co/api/v2/pokemon/";
 //high res img source
 var pokeURL2 = "https://cdn.traction.one/pokedex/pokemon/"
 //
-//guessing counter
-var correctAnswers = [];
-var incorrectAnswers = [];
+//counters
+var guessNum = [];
+
+var pokemonTypes = [];
+
 
 
 //--------------------------------------------------------------------
@@ -20,114 +22,86 @@ function goHome() {
 
 //page restructuring
 function pageGame() {
-
   $('#game-div').attr("hidden", false);
   $("#lucky-div").attr("hidden", true);
   $("#type1").attr("hidden", true);
   $("#type2").attr("hidden", true);
-
+  $("#num-type").attr("hidden", false);
+  $("#guesses").attr("hidden", false);
+  $("#pokeID").attr("hidden", true);
+  $("#start-btn").attr("hidden", true);
+  $("#poke-search").attr("hidden", true);
 }
+
 //
 
-//random number genrator
-function getRandomInt(min, max) {
-  result = Math.floor(Math.random() * (max - min + 1)) + min;
-  return result
-}
-//
 
-//INIT GEN TO RANDOM ID from NUM
-function randIdPicker(num) {
-  if (num == "1") {
-    return getRandomInt(1, 151);
-  } else if (num == "2") {
-    return getRandomInt(152, 251);
-  } else if (num == "3") {
-    return getRandomInt(252, 386);
-  } else if (num == "4") {
-    return getRandomInt(387, 493);
-  } else if (num >= 5 || num <= 1) {
-    alert("Choose Between Generations 1, 2, 3 or 4");
-    return
-  }
-
-}
-//
 
 // button comparison to type
 function answerSubmit(num) {
   var answer = document.getElementById("t" + num).value;
-  console.log(answer)
+
   var type1 = document.getElementById("type1").innerText.toLowerCase();
-  console.log("inner text : " + type1);
+  var type2 = document.getElementById("type2").innerText.toLowerCase();
 
-  if (correctAnswers.length == 0) {
-    if (incorrectAnswers.length <= 2) {
-      if (answer == type1) {
-        $("#choice-head").html("Well Done!");
-        correctAnswers.push("tick");
-        console.log(correctAnswers);
-      } else {
-        alert("WRONG");
-        incorrectAnswers.push("X");
-        console.log(incorrectAnswers);
-        $("#num-types").html("You have " + (3 - incorrectAnswers.length) + "  guesses remaining");
-        if (incorrectAnswers.length == 3) {
-          alert("youve ran out of guesses");
-          goHome();
-        } else {
-          return
-        }
+
+  //used if theres only 1 type
+  if (pokemonTypes.length == 1){
+    if (guessNum.length <=2){
+      if (answer == pokemonTypes[0]){
+        alert("Congrats!!")
+        goHome();
       }
-    } else {
-      alert("youve ran out of guesses!!");
-      goHome();
+      else{
+        alert("Wrong answer !!")
+        guessNum.push("x");
+        $("#guesses").html( "You have " + (3 - guessNum.length) + "  guesses remaining");
+      }
 
     }
 
+    else{
+      alert("You've ran out of guesses");
+      goHome();
+    }
   }
 
-  else {
-    var type2 = document.getElementById("type2").innerText.toLowerCase();
 
-    if (incorrectAnswers.length <= 2) {
-      if (answer == type2) {
-        $("#choice-head").html("Well Done!");
-        correctAnswers.push("tick");
-        alert("Well Done You Guessed Both Types");
-      } else {
-        alert("WRONG");
-        incorrectAnswers.push("X");
-        console.log(incorrectAnswers);
-        $("#num-types").html("You have " + (3 - incorrectAnswers.length) + "  guesses remaining");
-        if (incorrectAnswers.length == 3) {
-          alert("youve ran out of guesses");
-          goHome();
-        } else {
-          return
-        }
+  //used if there are two tyoes
+  else{
+    if (guessNum.length<=2){
+
+
+      if (answer == pokemonTypes[0]){
+        alert("1 down 1 to go!!");
+        pokemonTypes.shift();
       }
-    } else {
-      alert("youve ran out of guesses!!");
-      goHome();
+      else if (answer == pokemonTypes[1]){
+        alert("guessed second type correctly")
+        pokemonTypes.pop();
+      }
+      else{
+        alert("Wrong answer !!")
+        guessNum.push("x");
+        $("#guesses").html( "You have " + (3 - guessNum.length) + "  guesses remaining");
+
+      }
+
 
     }
-
+    else{
+      alert("Youve ran out of guesses!");
+      goHome();
+    }
   }
-
-
-
-
 }
 //
 // INIT END ------------------------------------------------------------------------
-
 
 // START GAME FUNCTION GETTING GENERATION CHOICE FROM USER
 function startGame() {
   //rearrange page
   pageGame();
-
   //rearrange page end
 
   //match gen choice with random ID
@@ -154,32 +128,61 @@ function startGame() {
     var pokeID = data.id;
     var pokeType1 = data.types[0].type.name;
     var typeNumber = data.types.length;
+
+    $("#results").html(pokeName + "<p>National_ID:  " + pokeID + "</p>");
     $("#poke-ball").attr("src", pokeURL2 + pokeID + ".png");
-    $("#num-type").html("Pokemon Type Num: " + typeNumber + ".")
-    $("#guesses").html( "You have " + (3 - incorrectAnswers.length) + "  guesses remaining");
+    $("#num-type").html("Number Of Types:   " + typeNumber)
+    $("#guesses").html( "You have " + (3 - guessNum.length) + "  guesses remaining");
 
     console.log(pokeType1);
 
     function typeNumCheck() {
       if (typeNumber == 1) {
         pokeType2 = "";
+        pokemonTypes.push(pokeType1);
+        console.log(pokemonTypes);
         $("#type1").html(pokeType1);
         $("#type2").html(pokeType2);
 
       } else {
         var pokeType2 = data.types[1].type.name;
+        pokemonTypes.push(pokeType1,pokeType2);
+        console.log(pokemonTypes);
         $("#type1").html(pokeType1);
         $("#type2").html(pokeType2);
       }
     }
 
     typeNumCheck();
-    console.log(pokeType2)
-    $("#results").html(pokeName + "<p>National_ID:  " + pokeID + "</p>");
 
   })
 }
 // END OF STARTGAME FUNCTION
+
+//random number genrator
+function getRandomInt(min, max) {
+  result = Math.floor(Math.random() * (max - min + 1)) + min;
+  return result
+}
+//
+
+//INIT GEN TO RANDOM ID from NUM
+function randIdPicker(num) {
+  if (num == "1") {
+    return getRandomInt(1, 151);
+  } else if (num == "2") {
+    return getRandomInt(152, 251);
+  } else if (num == "3") {
+    return getRandomInt(252, 386);
+  } else if (num == "4") {
+    return getRandomInt(387, 493);
+  } else if (num >= 5 || num <= 1) {
+    alert("Choose Between Generations 1, 2, 3 or 4");
+    return
+  }
+
+}
+//
 
 
 // random GEN PICKER FROM LUCKY
@@ -197,6 +200,8 @@ function genPicker(num) {
 
 }
 //rand INT FUNCTION end
+
+
 // feeling lucky function
 function feelingLucky(i) {
   var param = genPicker(i);
@@ -235,16 +240,7 @@ function feelingLucky(i) {
 
 
 }
-//
-///==================================================
-function Pokemon(id, name, img, type1, type2) {
-  this.id = id;
-  this.name = name;
-  this.img = img;
-  this.type1 = type1;
-  this.type2 = type2;
-}
-// ====================================================
+// feeling lucky end
 
 
 // Recall data from user input pokeID num value. START//
@@ -289,13 +285,6 @@ function pokeSubmit() {
 
 };
 // END
-//TESTING
-
-
-
-
-
-
 
 // known bugs
 // pokemon 487, 492 has no image
