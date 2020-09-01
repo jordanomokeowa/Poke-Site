@@ -5,7 +5,6 @@
   <meta charset="utf-8">
   <title>PokeStat</title>
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-  <script src="index.js" charset="utf-8"></script>
   <!-- //bootstrap -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <!-- //bootstrap end -->
@@ -24,20 +23,21 @@
   <input id="pokeID" placeholder="Name / National ID" value="">
   <button id="poke-search" onclick="pokeSubmit()">Search</button>
 
+
   <!-- heading -->
   <div class="container-fluid backDrop">
-    <div class="guessDiv">
-      <p id="num-type"></p>
-      <p id="guesses"></p>
-    </div>
 
     <div class="row justify-content-center">
       <div class="pokeDexStyle col-lg-9 col-sm-11">
-        <h1 style="font-size:4rem; border-bottom: 1px solid grey; display:inline-block" id="results">National PokeDex</h1>
+        <h1 style="font-size:5rem; border-bottom: 1px solid grey; display:inline-block" id="results">National PokeDex</h1>
 
         <br>
-        <div id="pic-div" style="height:auto; display: inline-block; padding:0 auto; background-color:lightblue; border-radius:100%">
+        <div id="pic-div" style="height:auto; display: inline-block;background-color:lightblue; border-radius:100%">
           <img id="poke-ball" src="pokeimages/pokeball.png" alt="pokeImg">
+        </div>
+        <div class="guessDiv">
+          <p id="num-type"></p>
+          <p id="guesses"></p>
         </div>
         <hr>
         <h2 id="type1"></h2>
@@ -67,10 +67,10 @@
       <div class="col-lg-9 col-sm-11 pokeDexStyle2">
         <h1 id="feeling-lucky">Im Feeling Lucky</h1>
         <hr>
-        <button onclick="feelingLucky(1)">GEN 1</button> <button onclick="feelingLucky(2)"> GEN 2</button>
+        <button onclick="feelingLucky(1)">GENERATION 1</button> <button onclick="feelingLucky(2)">GENERATION 2</button>
         <br>
         <br>
-        <button onclick="feelingLucky(3)">GEN 3</button><button onclick="feelingLucky(4)">GEN 4</button>
+        <button onclick="feelingLucky(3)">GENERATION 3</button><button onclick="feelingLucky(4)">GENERATION 4</button>
       </div>
 
     </div>
@@ -113,6 +113,10 @@
 
 
   </div>
+
+  
+  <script src="index.js" charset="utf-8"></script>
+
 
 
 

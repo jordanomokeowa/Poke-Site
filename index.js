@@ -1,3 +1,6 @@
+//page responsiveness
+
+
 //INITALIally ASSIGNING VARIABLES--------------------------------------
 //source for json
 var pokeURL = "http://pokeapi.co/api/v2/pokemon/";
@@ -5,11 +8,15 @@ var pokeURL = "http://pokeapi.co/api/v2/pokemon/";
 //high res img source
 var pokeURL2 = "https://cdn.traction.one/pokedex/pokemon/"
 //
+//pokemon description
+var pokeURL3 = "https://pokeapi.glitch.me/v1/pokemon/"
+//
 //counters
 var guessNum = [];
 
 var pokemonTypes = [];
 
+var type1 = document.getElementById("type1").innerText.toLowerCase();
 
 
 //--------------------------------------------------------------------
@@ -40,6 +47,7 @@ function pageGame() {
 // button comparison to type
 function answerSubmit(num) {
   var answer = document.getElementById("t" + num).value;
+  var name = document.getElementById("results").innerText;
 
   var type1 = document.getElementById("type1").innerText.toLowerCase();
   var type2 = document.getElementById("type2").innerText.toLowerCase();
@@ -47,7 +55,7 @@ function answerSubmit(num) {
 
   //used if theres only 1 type
   if (pokemonTypes.length == 1){
-    if (guessNum.length <=2){
+    if (guessNum.length <2){
       if (answer == pokemonTypes[0]){
         alert("Congrats!!")
         goHome();
@@ -57,19 +65,25 @@ function answerSubmit(num) {
         guessNum.push("x");
         $("#guesses").html( "You have " + (3 - guessNum.length) + "  guesses remaining");
       }
-
     }
 
     else{
-      alert("You've ran out of guesses");
-      goHome();
+      if (answer == pokemonTypes[0]){
+        alert("Congrats!!")
+        goHome();
+      }
+      else{
+        alert("You've ran out of guesses.... ");
+        alert(name + "s "+ "missing type is " + type1.toUpperCase());
+        goHome();
+      }
     }
   }
 
 
   //used if there are two tyoes
   else{
-    if (guessNum.length<=2){
+    if (guessNum.length<2){
 
 
       if (answer == pokemonTypes[0]){
@@ -90,8 +104,20 @@ function answerSubmit(num) {
 
     }
     else{
-      alert("Youve ran out of guesses!");
-      goHome();
+      if (answer == pokemonTypes[0]){
+        alert("Congrats!!")
+        goHome();
+      }
+      else{
+        alert("You've ran out of guesses.... ");
+        if (pokemonTypes.length == 1){
+          alert(name + "s "+ "missing type is " + type1.toUpperCase());
+        }
+        else{
+          alert(name + "s "+ "missing types are " + type1.toUpperCase() + " and " + type2.toUpperCase());
+        }
+        goHome();
+      }
     }
   }
 }
@@ -236,6 +262,11 @@ function feelingLucky(i) {
     $('#poke-ball').addClass("ImgLarge");
     return pokeName
   });
+
+  // var pokeURLCom2 = pokeURL3 + param
+  // $.getJSON(pokeURL2,function(data){
+  //   var pokeDesc
+  // })
 
 
 
